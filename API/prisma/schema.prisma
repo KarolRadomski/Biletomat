@@ -1,0 +1,154 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+
+model User{
+  id        Int       @id @default(autoincrement())
+  fname     String 
+  lname     String 
+  email     String    @unique
+  password  String
+  role      String  @default("USER")
+
+  // order relation
+  orders    Order[]
+}
+
+model Order{
+  id        Int         @id @default(autoincrement())
+  createdAt DateTime    @default(now())
+  isPaid    Boolean     @default(false)
+
+  // ticeket relation
+  tickets    Ticket[]
+
+  // user relation
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
+}
+
+
+// Musi być przypisane miejsce w momencie tworzenia biletu
+model Ticket{
+  id        Int     @id @default(autoincrement())
+  QRCodeURL String  
+  
+  //SeatInSector relation
+  seatInSector      SeatInSector    @relation(fields: [seatInSectorId], references: [id], onDelete: Cascade)  
+  seatInSectorId    Int     @unique
+  
+  //Order relation
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId   Int
+
+  // Event relation
+  event     Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  eventId   Int
+}
+
+// Ticket nie musi być przypisany w momencie tworzenia
+model Seat{
+  id        Int     @id @default(autoincrement())
+  row       Int
+  number    Int
+   
+  //Sector relation
+  sector     Sector   @relation(fields: [sectorId], references: [id], onDelete: Cascade)
+  sectorId   Int
+
+  //SeatInSector relation
+  seatInSectors   SeatInSector[]
+}
+
+model Sector{
+  id        Int     @id @default(autoincrement())
+  name      String
+
+  // Seat realtion
+  seats  Seat[]
+
+  // Place relation
+  place     Place   @relation(fields: [placeId], references: [id], onDelete: Cascade)
+  placeId   Int
+
+  //SectorDetail relation
+  sectorDetails SectorDetail[]
+}
+
+model Place{
+  id        Int     @id @default(autoincrement())
+  name      String
+  address   String
+
+  // Sector realtion
+  sectors   Sector[]
+
+  // Event relation
+  events    Event[]
+
+}
+
+model Event{
+id        Int     @id @default(autoincrement())
+name      String
+date      DateTime    
+description String @default("DESC")
+//event relation
+tickets  Ticket[]
+
+// Place relation
+place     Place   @relation(fields: [placeId], references: [id], onDelete: Cascade)
+placeId   Int
+
+// sectorDetails relation
+sectorDetails SectorDetail[]
+}
+
+
+
+model SectorDetail{
+id        Int     @id @default(autoincrement())
+price     Float  
+
+//Event relation
+event     Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+eventId   Int
+
+//Sector relation
+sector     Sector @relation(fields: [sectorId], references: [id], onDelete: Cascade)
+sectorId   Int
+
+//SeatInSector relation
+seatsInSectors SeatInSector[]
+
+}
+
+
+
+
+
+
+model SeatInSector{
+  id        Int     @id @default(autoincrement())
+  reserved  Boolean @default(false)
+
+  //  Ticket relation
+  ticket    Ticket[]
+
+  //Seat relation
+  seat     Seat @relation(fields: [seatId], references: [id], onDelete: Cascade)
+  seatId   Int
+
+  // SectorDetails relation
+  sectorDetail     SectorDetail @relation(fields: [sectorDetailId], references: [id], onDelete: Cascade)
+  sectorDetailId   Int
+}
