@@ -1,11 +1,13 @@
 const asyncHandler = require('express-async-handler');
 
 // @desc    Get all places data
-// @route   GET /api/place
+// @route   POST /api/upload/uploadCover
 // @access  Public
 
 const uploadCover = asyncHandler(async (req, res) => {
-  res.json('file uploaded successfully');
+  res.json({
+    file: req.file.filename,
+  });
 });
 
 module.exports = {

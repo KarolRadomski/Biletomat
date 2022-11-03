@@ -101,8 +101,10 @@ model Event{
 id        Int     @id @default(autoincrement())
 name      String
 date      DateTime    
-description String @default("DESC")
-//event relation
+description String
+coverUrl  String 
+
+//tickets relation
 tickets  Ticket[]
 
 // Place relation
