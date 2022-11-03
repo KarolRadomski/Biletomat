@@ -1,1 +1,3 @@
 # Biletomat
+
+#npm run dev
