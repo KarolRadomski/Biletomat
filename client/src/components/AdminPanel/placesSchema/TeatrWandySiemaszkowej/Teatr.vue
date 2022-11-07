@@ -77,6 +77,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin: 0 auto;
 }
 
 .sector {
@@ -104,6 +105,15 @@ export default {
     width: 70%;
     padding-right: 0px;
   }
+  .sector1 {
+    height: 300px;
+    width: 80%;
+  }
+
+  .sector2 {
+    height: 150px;
+    width: 80%;
+  }
 }
 @media (max-width: 425px) {
   .sector {
@@ -115,11 +125,11 @@ export default {
   }
   .sector1 {
     height: 100px;
+    width: 90%;
   }
   .sector2 {
     height: 150px;
-    width: 80%;
-    align-self: flex-end;
+    width: 90%;
   }
   .sector1 > h5,
   .sector2 > h5 {

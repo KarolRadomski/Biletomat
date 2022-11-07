@@ -29,7 +29,63 @@ export const useEventStore = defineStore('Event', {
       }
       console.log(this.Event.reservedSeatsId);
     },
-
+    handleChangePlace() {
+      console.log(this.Event.event.placeID);
+      this.Event.reservedSeatsId = [];
+      switch (this.Event.event.placeID) {
+        case 0:
+          this.Event.sectorDetails = [];
+          break;
+        case 1:
+          this.Event.sectorDetails = [
+            {
+              sectorId: 1,
+              price: '',
+            },
+            {
+              sectorId: 2,
+              price: '',
+            },
+            {
+              sectorId: 3,
+              price: '',
+            },
+            {
+              sectorId: 4,
+              price: '',
+            },
+            {
+              sectorId: 5,
+              price: '',
+            },
+            {
+              sectorId: 6,
+              price: '',
+            },
+          ];
+          break;
+        case 2:
+          this.Event.sectorDetails = [
+            {
+              sectorId: 7,
+              price: '',
+            },
+            {
+              sectorId: 8,
+              price: '',
+            },
+          ];
+          break;
+      }
+    },
+    handleChangePrice(sectorID, price) {
+      if (price !== '')
+        this.Event.sectorDetails.forEach((detail) => {
+          if (detail.sectorId === sectorID) {
+            detail.price = parseFloat(price);
+          }
+        });
+    },
     async uploadCover(data) {
       const response = await axios.post('/api/upload/uploadCover', data, { headers: { 'Content-Type': 'multipart/form-data' } });
       this.Event.event.coverUrl = `/uploads/${response.data.file}`;

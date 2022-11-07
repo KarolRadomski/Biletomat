@@ -11,12 +11,12 @@
           <label for="eventName">Nazwa wydarzenia</label>
         </div>
         <!-- Data -->
-        <div class="d-flex">
+        <div class="d-flex dateTimeContainer">
           <div class="form-floating mb-3">
             <input type="date" class="form-control w-100" id="eventDate" v-model="tempDate" @change="translateDate()" placeholder="23-12-322" />
             <label for="eventDate">Data wydarzenia</label>
           </div>
-          <div class="form-floating d-flex mb-3 ms-3">
+          <div class="form-floating d-flex mb-3 timeContainer">
             <input type="time" class="form-control w-100" id="eventTime" v-model="tempTime" @change="translateDate()" placeholder="23-12-322" />
             <label for="eventTime">Godzina</label>
           </div>
@@ -27,18 +27,26 @@
             class="form-select w-50"
             id="floatingSelect"
             v-model="Event.event.placeID"
-            @change="placeChange()"
+            @change="handleChangePlace()"
             aria-label="Floating label select example"
           >
             <option :value="0" selected></option>
-            <option :key="place.id" v-for="place in places" :value="{ id: place.id, name: place.name }">{{ place.name }}</option>
+            <option :key="place.id" v-for="place in places" :value="place.id">{{ place.name }}</option>
           </select>
           <label for="floatingSelect">Miejsce wydarzenia</label>
         </div>
         <!-- Obraz -->
         <div class="mb-3">
           <label for="formFile" class="form-label">Wybierz obraz wydarzenia</label>
-          <input class="form-control w-50" type="file" id="formFile" name="cover" ref="coverRef" />
+          <div class="d-flex">
+            <input class="form-control w-50" type="file" id="formFile" name="cover" ref="coverRef" @change="() => fileChange()" />
+            <div class="spinner-border spinner-border-sm mt-2 ms-2" v-if="uploadState === 1" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <div v-if="uploadState === 2">
+              <i class="bi bi-check-lg ms-2" style="font-size: 24px; position: relative; top: 2px; color: green" />
+            </div>
+          </div>
         </div>
         <!-- Opis -->
         <div class="form-floating mb-3">
@@ -54,8 +62,8 @@
       </div>
       <div class="sectorInfo" v-if="Event.event.placeID && Event.event.placeID !== 0">
         <h5 class="sectorInfoTitle">Ustawienia sektorów</h5>
-        <FilharmoniaPodkarpacka v-if="Event.event.placeID.name === 'Filharmonia Podkarpacka'" />
-        <TeatrWandySiemaszkowej v-if="Event.event.placeID.name === 'Teatr Wandy Siemaszkowej'" />
+        <FilharmoniaPodkarpacka v-if="Event.event.placeID === 1" />
+        <TeatrWandySiemaszkowej v-if="Event.event.placeID === 2" />
       </div>
       <div class="w-50 mx-auto">
         <button class="btn btn-primary w-100" @click="handleCreateEvent()">Utwórz wydarzenie</button>
@@ -79,12 +87,26 @@ export default {
       tempDate: '',
       tempTime: '',
       cover: '',
+      uploadState: 0,
     };
   },
   methods: {
-    ...mapActions(useEventStore, ['uploadCover']),
-    placeChange() {
-      console.log(this.Event.event.placeID);
+    ...mapActions(useEventStore, ['uploadCover', 'handleChangePlace']),
+    async fileChange() {
+      this.uploadState = 1;
+      let file = this.$refs.coverRef.files[0];
+
+      if (!file) {
+        this.uploadState = 0;
+        console.error('no file selected');
+        return;
+      }
+
+      let formData = new FormData();
+
+      formData.append('file', file);
+      await this.uploadCover(formData);
+      this.uploadState = 2;
     },
     translateDate() {
       this.Event.event.date = `${this.tempDate}T${this.tempTime ? this.tempTime : '00:00'}:00.000Z`;
@@ -158,9 +180,45 @@ export default {
   background: white;
   width: max-content;
 }
+.timeContainer {
+  margin-left: 20px;
+}
 @media (max-width: 768px) {
+  #eventName,
+  #eventDate,
+  #eventTime,
+  #floatingSelect,
+  #formFile,
+  label {
+    width: 100% !important;
+    font-size: 14px;
+  }
+  .basicInfoTitle,
+  .sectorInfoTitle {
+    padding: 10px 20px;
+  }
   .sectorInfo {
     padding: 10px 20px;
+  }
+}
+@media (max-width: 480px) {
+  .basicInfoTitle,
+  .sectorInfoTitle {
+    top: -32px;
+    padding: 10px 0px;
+    margin: 0px;
+    font-size: 16px;
+    margin: 0 auto;
+  }
+  .sectorInfo,
+  .basicInfo {
+    padding: 10px 20px;
+  }
+  .dateTimeContainer {
+    flex-direction: column;
+  }
+  .timeContainer {
+    margin-left: 0px;
   }
 }
 </style>
