@@ -4,14 +4,19 @@
     <div class="sectorContainer">
       <div class="column">
         <span>I</span>
-        <div class="seat" @click="handleClickSeat(662)" :class="{ selected: Event.reservedSeatsId.includes(662) }">1</div>
-        <div class="seat" @click="handleClickSeat(663)" :class="{ selected: Event.reservedSeatsId.includes(663) }">2</div>
+        <div class="seat" @click="handleClickSeat(662)" :class="{ selected: Event.reservedSeatsId.includes(662) }">1
+        </div>
+        <div class="seat" @click="handleClickSeat(663)" :class="{ selected: Event.reservedSeatsId.includes(663) }">2
+        </div>
       </div>
       <div class="column">
         <span>II</span>
-        <div class="seat" @click="handleClickSeat(664)" :class="{ selected: Event.reservedSeatsId.includes(664) }">3</div>
-        <div class="seat" @click="handleClickSeat(665)" :class="{ selected: Event.reservedSeatsId.includes(665) }">4</div>
-        <div class="seat" @click="handleClickSeat(666)" :class="{ selected: Event.reservedSeatsId.includes(666) }">5</div>
+        <div class="seat" @click="handleClickSeat(664)" :class="{ selected: Event.reservedSeatsId.includes(664) }">3
+        </div>
+        <div class="seat" @click="handleClickSeat(665)" :class="{ selected: Event.reservedSeatsId.includes(665) }">4
+        </div>
+        <div class="seat" @click="handleClickSeat(666)" :class="{ selected: Event.reservedSeatsId.includes(666) }">5
+        </div>
       </div>
     </div>
   </div>
@@ -45,6 +50,7 @@ export default {
   font-weight: 600;
   border-bottom: 3px solid black;
 }
+
 .sectorContainer {
   width: 100% !important;
   display: flex;
@@ -52,13 +58,14 @@ export default {
   margin: 50px auto;
   padding-right: 15%;
 }
+
 .column {
   display: flex;
   flex-direction: column;
   text-align: center;
 }
 
-.column > span {
+.column>span {
   font-size: 1.6vw;
   text-align: center;
   cursor: default;
@@ -76,10 +83,15 @@ export default {
   cursor: pointer;
 }
 
+.selected {
+  background: green;
+}
+
 @media (max-width: 768px) {
-  .column > span {
+  .column>span {
     font-size: 1.8vw;
   }
+
   .seat {
     width: 5vw;
     height: 5vw;
@@ -91,10 +103,12 @@ export default {
     padding: 0.9vw;
   }
 }
+
 @media (max-width: 450px) {
-  .column > span {
+  .column>span {
     font-size: 2.2vw;
   }
+
   .seat {
     width: 7vw;
     height: 7vw;

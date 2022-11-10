@@ -9,6 +9,8 @@ export const useEventStore = defineStore('Event', {
         event: {
           name: '',
           date: '',
+          startSellingDate: '',
+          endSellingDate: '',
           description: '',
           placeID: '',
           coverUrl: '',

@@ -101,6 +101,8 @@ model Event{
 id        Int     @id @default(autoincrement())
 name      String
 date      DateTime    
+startSellingDate      DateTime    
+endSellingDate      DateTime    
 description String
 coverUrl  String 
 

@@ -9,10 +9,12 @@
         <div class="modal-body">
           <ul class="nav nav-tabs nav-fill">
             <li class="nav-item">
-              <a class="nav-link" :class="{ active: modalState === 'pricing' }" @click="modalState = 'pricing'">Cena sektora</a>
+              <a class="nav-link" :class="{ active: modalState === 'pricing' }" @click="modalState = 'pricing'">Cena
+                sektora</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" :class="{ active: modalState === 'reservations' }" @click="modalState = 'reservations'">Rezerwacja miejsc</a>
+              <a class="nav-link" :class="{ active: modalState === 'reservations' }"
+                @click="modalState = 'reservations'">Rezerwacja miejsc</a>
             </li>
           </ul>
           <div v-if="modalState === 'pricing'">
@@ -83,10 +85,18 @@ export default {
   watch: {
     selectedSector(newVal, oldVal) {
       if (newVal)
-        this.price = {
-          value: this.Event.sectorDetails[this.selectedSector - 1].price,
-          valid: null,
-        };
+        // działa dla filharmonii ale dla teatru nie bo selected sector to np 7 a index tablicy to 0
+        if (this.place === "Filharmonia Podkarpacka")
+          this.price = {
+            value: this.Event.sectorDetails[this.selectedSector - 1].price,
+            valid: null,
+          };
+        else if (this.place === "Teatr Wandy Siemaszkowej") {
+          this.price = {
+            value: this.Event.sectorDetails[this.selectedSector - 7].price,
+            valid: null,
+          };
+        }
     },
   },
   methods: {

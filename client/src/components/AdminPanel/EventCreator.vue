@@ -7,29 +7,27 @@
         <h5 class="basicInfoTitle">Informacje podstawowe</h5>
         <!-- Nazwa -->
         <div class="form-floating mb-3">
-          <input type="text" class="form-control w-50" id="eventName" v-model="Event.event.name" placeholder="name@example.com" />
+          <input type="text" class="form-control w-50" id="eventName" v-model="Event.event.name"
+            placeholder="name@example.com" />
           <label for="eventName">Nazwa wydarzenia</label>
         </div>
         <!-- Data -->
         <div class="d-flex dateTimeContainer">
           <div class="form-floating mb-3">
-            <input type="date" class="form-control w-100" id="eventDate" v-model="tempDate" @change="translateDate()" placeholder="23-12-322" />
+            <input type="date" class="form-control w-100" id="eventDate" v-model="tempDate"
+              @change="translateDate('date')" placeholder="23-12-322" />
             <label for="eventDate">Data wydarzenia</label>
           </div>
           <div class="form-floating d-flex mb-3 timeContainer">
-            <input type="time" class="form-control w-100" id="eventTime" v-model="tempTime" @change="translateDate()" placeholder="23-12-322" />
+            <input type="time" class="form-control w-100" id="eventTime" v-model="tempTime"
+              @change="translateDate('date')" placeholder="23-12-322" />
             <label for="eventTime">Godzina</label>
           </div>
         </div>
         <!-- Miejsce -->
         <div class="form-floating mb-3">
-          <select
-            class="form-select w-50"
-            id="floatingSelect"
-            v-model="Event.event.placeID"
-            @change="handleChangePlace()"
-            aria-label="Floating label select example"
-          >
+          <select class="form-select w-50" id="floatingSelect" v-model="Event.event.placeID"
+            @change="handleChangePlace()" aria-label="Floating label select example">
             <option :value="0" selected></option>
             <option :key="place.id" v-for="place in places" :value="place.id">{{ place.name }}</option>
           </select>
@@ -39,7 +37,8 @@
         <div class="mb-3">
           <label for="formFile" class="form-label">Wybierz obraz wydarzenia</label>
           <div class="d-flex">
-            <input class="form-control w-50" type="file" id="formFile" name="cover" ref="coverRef" @change="() => fileChange()" />
+            <input class="form-control w-50" type="file" id="formFile" name="cover" ref="coverRef"
+              @change="() => fileChange()" />
             <div class="spinner-border spinner-border-sm mt-2 ms-2" v-if="uploadState === 1" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>
@@ -50,14 +49,39 @@
         </div>
         <!-- Opis -->
         <div class="form-floating mb-3">
-          <textarea
-            class="form-control"
-            style="height: 120px"
-            v-model="Event.event.description"
-            placeholder="Leave a comment here"
-            id="floatingTextarea"
-          ></textarea>
+          <textarea class="form-control" style="height: 120px" v-model="Event.event.description"
+            placeholder="Leave a comment here" id="floatingTextarea"></textarea>
           <label for="eventName">Opis wydarzenia</label>
+        </div>
+        <div class="dateTimeContainer">
+          <h5 style="font-size: 1rem;">Początek sprzedaży</h5>
+          <div class="d-flex">
+            <div class="form-floating mb-3">
+              <input type="date" class="form-control w-100" id="eventDate" v-model="tempDateStart"
+                @change="translateDate('start')" placeholder="23-12-322" />
+              <label for="eventDate">Data</label>
+            </div>
+            <div class="form-floating d-flex mb-3 timeContainer">
+              <input type="time" class="form-control w-100" id="eventTime" v-model="tempTimeStart"
+                @change="translateDate('start')" placeholder="23-12-322" />
+              <label for="eventTime">Godzina</label>
+            </div>
+          </div>
+        </div>
+        <div class="dateTimeContainer">
+          <h5 style="font-size: 1rem;">Koniec sprzedaży</h5>
+          <div class="d-flex">
+            <div class="form-floating mb-3">
+              <input type="date" class="form-control w-100" id="eventDate" v-model="tempDateEnd"
+                @change="translateDate('end')" placeholder="23-12-322" />
+              <label for="eventDate">Data</label>
+            </div>
+            <div class="form-floating d-flex mb-3 timeContainer">
+              <input type="time" class="form-control w-100" id="eventTime" v-model="tempTimeEnd"
+                @change="translateDate('end')" placeholder="23-12-322" />
+              <label for="eventTime">Godzina</label>
+            </div>
+          </div>
         </div>
       </div>
       <div class="sectorInfo" v-if="Event.event.placeID && Event.event.placeID !== 0">
@@ -86,6 +110,10 @@ export default {
       places: [],
       tempDate: '',
       tempTime: '',
+      tempDateStart: '',
+      tempTimeStart: '',
+      tempDateEnd: '',
+      tempTimeEnd: '',
       cover: '',
       uploadState: 0,
     };
@@ -108,8 +136,19 @@ export default {
       await this.uploadCover(formData);
       this.uploadState = 2;
     },
-    translateDate() {
-      this.Event.event.date = `${this.tempDate}T${this.tempTime ? this.tempTime : '00:00'}:00.000Z`;
+    translateDate(formType) {
+      switch (formType) {
+        case 'date':
+          this.Event.event.date = `${this.tempDate}T${this.tempTime ? this.tempTime : '00:00'}:00.000Z`;
+          break;
+        case 'start':
+
+          this.Event.event.startSellingDate = `${this.tempDateStart}T${this.tempTimeStart ? this.tempTimeStart : '00:00'}:00.000Z`;
+          break;
+        case 'end':
+          this.Event.event.endSellingDate = `${this.tempDateEnd}T${this.tempTimeEnd ? this.tempTimeEnd : '00:00'}:00.000Z`;
+          break;
+      }
     },
     async sendImage() {
       let file = this.$refs.coverRef.files[0];
@@ -126,6 +165,22 @@ export default {
     },
     handleCreateEvent() {
       console.log(this.Event);
+      if (this.Event.event.name === '' && this.Event.event.date === '' && this.Event.event.coverUrl === '' && this.Event.event.description === '') {
+        console.log("Brak nazwy wydarzenia, daty, zdjęcia lub opisu");
+        return 0;
+      }
+      let emptyFlag = false
+      this.Event.sectorDetails.forEach((sector) => {
+        if (sector.price === '') {
+          console.log("Nie ustawiono ceny dla sektora ");
+          emptyFlag = true;
+          return 0;
+        }
+      })
+      if (!emptyFlag) {
+        console.log("Weryfikacja przebiegła pomyślnie");
+        return 1;
+      }
     },
   },
   computed: {
@@ -180,10 +235,13 @@ export default {
   background: white;
   width: max-content;
 }
+
 .timeContainer {
   margin-left: 20px;
 }
+
 @media (max-width: 768px) {
+
   #eventName,
   #eventDate,
   #eventTime,
@@ -193,15 +251,19 @@ export default {
     width: 100% !important;
     font-size: 14px;
   }
+
   .basicInfoTitle,
   .sectorInfoTitle {
     padding: 10px 20px;
   }
+
   .sectorInfo {
     padding: 10px 20px;
   }
 }
+
 @media (max-width: 480px) {
+
   .basicInfoTitle,
   .sectorInfoTitle {
     top: -32px;
@@ -210,13 +272,16 @@ export default {
     font-size: 16px;
     margin: 0 auto;
   }
+
   .sectorInfo,
   .basicInfo {
     padding: 10px 20px;
   }
+
   .dateTimeContainer {
     flex-direction: column;
   }
+
   .timeContainer {
     margin-left: 0px;
   }
