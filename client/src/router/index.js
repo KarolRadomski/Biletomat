@@ -2,7 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
 import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
-import Admin from '../views/Admin.vue';
+import AdminIndex from '../views/AdminPanel/index.vue';
+import Creator from '../views/AdminPanel/CreateEvent.vue';
+import Editor from '../views/AdminPanel/EditEvent.vue';
 
 const routes = [
   {
@@ -23,7 +25,17 @@ const routes = [
   {
     path: '/admin',
     name: 'admin',
-    component: Admin,
+    component: AdminIndex,
+  },
+  {
+    path: '/admin/new',
+    name: 'creator',
+    component: Creator,
+  },
+  {
+    path: '/admin/edit/:id',
+    name: 'editor',
+    component: Editor,
   },
 ];
 

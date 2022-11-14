@@ -4,19 +4,14 @@
     <div class="sectorContainer">
       <div class="column">
         <span>I</span>
-        <div class="seat" @click="handleClickSeat(652)" :class="{ selected: Event.reservedSeatsId.includes(652) }">1
-        </div>
-        <div class="seat" @click="handleClickSeat(653)" :class="{ selected: Event.reservedSeatsId.includes(653) }">2
-        </div>
+        <div class="seat" @click="handleClickSeat(652)" :class="{ occupied: Event.occupiedSeatsId.includes(652), selected: Event.reservedSeatsId.includes(652) }">1</div>
+        <div class="seat" @click="handleClickSeat(653)" :class="{ occupied: Event.occupiedSeatsId.includes(653), selected: Event.reservedSeatsId.includes(653) }">2</div>
       </div>
       <div class="column">
         <span>II</span>
-        <div class="seat" @click="handleClickSeat(654)" :class="{ selected: Event.reservedSeatsId.includes(654) }">3
-        </div>
-        <div class="seat" @click="handleClickSeat(655)" :class="{ selected: Event.reservedSeatsId.includes(655) }">4
-        </div>
-        <div class="seat" @click="handleClickSeat(656)" :class="{ selected: Event.reservedSeatsId.includes(656) }">5
-        </div>
+        <div class="seat" @click="handleClickSeat(654)" :class="{ occupied: Event.occupiedSeatsId.includes(654), selected: Event.reservedSeatsId.includes(654) }">3</div>
+        <div class="seat" @click="handleClickSeat(655)" :class="{ occupied: Event.occupiedSeatsId.includes(655), selected: Event.reservedSeatsId.includes(655) }">4</div>
+        <div class="seat" @click="handleClickSeat(656)" :class="{ occupied: Event.occupiedSeatsId.includes(656), selected: Event.reservedSeatsId.includes(656) }">5</div>
       </div>
     </div>
   </div>
@@ -65,7 +60,7 @@ export default {
   text-align: center;
 }
 
-.column>span {
+.column > span {
   font-size: 1.6vw;
   text-align: center;
   cursor: default;
@@ -86,9 +81,13 @@ export default {
 .selected {
   background: green;
 }
+.occupied {
+  background: rgb(182, 19, 19);
+  pointer-events: none;
+}
 
 @media (max-width: 768px) {
-  .column>span {
+  .column > span {
     font-size: 1.8vw;
   }
 
@@ -105,7 +104,7 @@ export default {
 }
 
 @media (max-width: 450px) {
-  .column>span {
+  .column > span {
     font-size: 2.2vw;
   }
 

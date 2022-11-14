@@ -23,6 +23,7 @@ const getPlaces = asyncHandler(async (req, res) => {
     });
   }
 });
+
 const createSeats = asyncHandler(async (req, res) => {
   // Check if user exists
   const { row, fnumber, lnumber, sectorID } = req.body;

@@ -43,6 +43,7 @@ export default {
 <style scoped>
 .navbar {
   box-shadow: 8px 8px 24px -15px rgba(66, 68, 90, 1);
+  z-index: 10;
 }
 .logoutButton {
   border: none;
@@ -68,6 +69,19 @@ export default {
   .logo {
     width: 32px !important;
     height: 32px !important;
+  }
+}
+@media only screen and (max-width: 530px) {
+  .logoName {
+    display: none !important;
+  }
+}
+@media only screen and (max-width: 400px) {
+  button {
+    font-size: 0.65em;
+  }
+  .returnButton > i {
+    display: none;
   }
 }
 </style>

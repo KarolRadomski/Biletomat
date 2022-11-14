@@ -2,7 +2,7 @@
   <div class="containerFlex">
     <div class="pageBackground"></div>
     <div class="pageContainer">
-      <h2>Kreator wydarzenia</h2>
+      <h2>Edytor wydarzenia</h2>
       <div class="basicInfo">
         <h5 class="basicInfoTitle">Informacje podstawowe</h5>
         <!-- Nazwa -->
@@ -29,6 +29,7 @@
             v-model="Event.event.placeID"
             @change="handleChangePlace()"
             aria-label="Floating label select example"
+            disabled
           >
             <option :value="0" selected></option>
             <option :key="place.id" v-for="place in places" :value="place.id">{{ place.name }}</option>
@@ -36,8 +37,10 @@
           <label for="floatingSelect">Miejsce wydarzenia</label>
         </div>
         <!-- Obraz -->
-        <div class="mb-3">
-          <label for="formFile" class="form-label">Wybierz obraz wydarzenia</label>
+        <div class="mb-3 d-flex flex-column">
+          <label for="formFile" class="form-label">Aktualny obraz wydarzenia:</label>
+          <img class="eventCover" :src="'http://localhost:5000' + Event.event.coverUrl" />
+          <label for="formFile" class="form-label mt-2">Wybierz nowy obraz wydarzenia:</label>
           <div class="d-flex">
             <input class="form-control w-50" type="file" id="formFile" name="cover" ref="coverRef" @change="() => fileChange()" />
             <div class="spinner-border spinner-border-sm mt-2 ms-2" v-if="uploadState === 1" role="status">
@@ -120,9 +123,10 @@
         <TeatrWandySiemaszkowej v-if="Event.event.placeID === 2" />
       </div>
       <div class="w-50 mx-auto">
-        <button class="btn btn-primary w-100" @click="handleCreateEvent()">Utwórz wydarzenie</button>
+        <button class="btn btn-primary w-100" @click="handleUpdateEvent()">Aktualizuj wydarzenie</button>
       </div>
     </div>
+    <pre>{{ event }}</pre>
   </div>
 </template>
 
@@ -137,6 +141,7 @@ export default {
   name: 'EventCreator',
   data() {
     return {
+      event: {},
       places: [],
       tempDate: '',
       tempTime: '',
@@ -150,6 +155,34 @@ export default {
   },
   methods: {
     ...mapActions(useEventStore, ['uploadCover', 'handleChangePlace']),
+    prepareStates(data) {
+      this.Event.event.name = data.name;
+      this.Event.event.id = data.id;
+      this.Event.event.date = data.date;
+      this.tempDate = data.date.slice(0, 10);
+      this.tempTime = data.date.slice(11, 16);
+      this.Event.event.startSellingDate = data.startSellingDate;
+      this.tempDateStart = data.startSellingDate.slice(0, 10);
+      this.tempTimeStart = data.startSellingDate.slice(11, 16);
+      this.Event.event.endSellingDate = data.endSellingDate;
+      this.tempDateEnd = data.endSellingDate.slice(0, 10);
+      this.tempTimeEnd = data.endSellingDate.slice(11, 16);
+      this.Event.event.description = data.description;
+      this.Event.event.coverUrl = data.coverUrl;
+      this.Event.event.placeID = data.placeId;
+      this.handleChangePlace();
+      data.sectorDetails.forEach((sector, index) => {
+        this.Event.sectorDetails[index].price = sector.price;
+      });
+      this.Event.occupiedSeatsId = [];
+      data.sectorDetails.forEach((sector) => {
+        sector.seatsInSectors.forEach((seat) => {
+          if (seat.reserved || seat.ticket.length !== 0) {
+            this.Event.occupiedSeatsId.push(seat.seatId);
+          }
+        });
+      });
+    },
     async fileChange() {
       this.uploadState = 1;
       let file = this.$refs.coverRef.files[0];
@@ -179,20 +212,7 @@ export default {
           break;
       }
     },
-    async sendImage() {
-      let file = this.$refs.coverRef.files[0];
-
-      if (!file) {
-        console.error('no file selected');
-        return;
-      }
-
-      let formData = new FormData();
-
-      formData.append('file', file);
-      await this.uploadCover(formData);
-    },
-    handleCreateEvent() {
+    handleUpdateEvent() {
       console.log(this.Event);
       if (this.Event.event.name === '' && this.Event.event.date === '' && this.Event.event.coverUrl === '' && this.Event.event.description === '') {
         console.log('Brak nazwy wydarzenia, daty, zdjęcia lub opisu');
@@ -208,8 +228,13 @@ export default {
       });
       if (!emptyFlag) {
         console.log('Weryfikacja przebiegła pomyślnie');
-        console.log(this.Event);
-        const resp = axios.post('/api//event/create', this.Event);
+        const data = {
+          event: this.Event.event,
+          reservedSeatsId: this.Event.reservedSeatsId,
+          sectorDetails: this.Event.sectorDetails,
+        };
+        console.log(data);
+        const resp = axios.post('/api//event/update', data);
         if (resp) {
           this.$router.push({ path: '/admin' });
         }
@@ -221,6 +246,14 @@ export default {
   },
   created() {
     axios.get('/api/place/getplaces').then((response) => (this.places = response.data.places));
+    axios.post('/api/event/getData', { id: Number(this.$route.params.id) }).then((response) => (this.event = response.data.event));
+  },
+  watch: {
+    event(newVal, oldVal) {
+      if (newVal) {
+        this.prepareStates(newVal);
+      }
+    },
   },
   components: {
     FilharmoniaPodkarpacka,
@@ -275,6 +308,9 @@ export default {
 
 .timeContainer {
   margin-left: 20px;
+}
+.eventCover {
+  width: 250px;
 }
 
 @media (max-width: 768px) {

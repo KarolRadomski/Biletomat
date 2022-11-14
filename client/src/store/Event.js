@@ -7,6 +7,7 @@ export const useEventStore = defineStore('Event', {
     return {
       Event: {
         event: {
+          id: '',
           name: '',
           date: '',
           startSellingDate: '',
@@ -17,6 +18,7 @@ export const useEventStore = defineStore('Event', {
         },
         sectorDetails: [],
         reservedSeatsId: [],
+        occupiedSeatsId: [],
       },
     };
   },
