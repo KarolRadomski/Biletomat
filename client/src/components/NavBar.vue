@@ -21,7 +21,8 @@
             <router-link :to="{ path: '/logowanie' }">
               <button class="w-100 mt-2 loginButton">Zaloguj się</button>
             </router-link>
-            <span class="mt-2"> Nie masz konta? <a href="/rejestracja" class="registerButton mt-2">Zarejestruj się</a> </span>
+            <span class="mt-2"> Nie masz konta? <a href="/rejestracja" class="registerButton mt-2">Zarejestruj się</a>
+            </span>
           </div>
           <div v-else>
             <router-link v-if="user.role === 'ADMIN'" :to="{ path: '/admin' }">
@@ -66,9 +67,11 @@ export default {
 .navbar {
   box-shadow: 8px 8px 24px -15px rgba(66, 68, 90, 1);
 }
+
 .avatar {
   background-color: #f25757;
 }
+
 .dropdownElement {
   text-align: center;
   padding: 20px;
@@ -77,11 +80,13 @@ export default {
   border-color: lightgray;
   position: absolute;
   top: 20;
-  left: -50px !important;
+  left: -250px !important;
 }
+
 .dropdownElement a {
   text-decoration: none;
 }
+
 .loginButton {
   border: none;
   background: #f25757;
@@ -89,6 +94,7 @@ export default {
   font-size: 18px;
   color: white;
 }
+
 .registerButton {
   text-decoration: none;
   color: #f94144;
@@ -102,6 +108,7 @@ export default {
   padding: 10px;
   border-bottom: 1px solid lightgray;
 }
+
 .dropElement.last {
   border-bottom: none;
 }
@@ -110,10 +117,12 @@ export default {
   .userName {
     display: none !important;
   }
+
   .logoName {
     font-size: 24px;
     padding-top: 10px;
   }
+
   .logo,
   .avatar {
     width: 32px !important;

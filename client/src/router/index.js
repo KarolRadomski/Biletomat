@@ -5,6 +5,7 @@ import Register from '../views/Register.vue';
 import AdminIndex from '../views/AdminPanel/index.vue';
 import Creator from '../views/AdminPanel/CreateEvent.vue';
 import Editor from '../views/AdminPanel/EditEvent.vue';
+import Wydarzenie from '../views/Wydarzenie.vue';
 
 const routes = [
   {
@@ -36,6 +37,11 @@ const routes = [
     path: '/admin/edit/:id',
     name: 'editor',
     component: Editor,
+  },
+  {
+    path: '/wydarzenie',
+    name: 'wydarzenie',
+    component: Wydarzenie,
   },
 ];
 

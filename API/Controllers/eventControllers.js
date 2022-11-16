@@ -57,7 +57,7 @@ const getEvents = asyncHandler(async (req, res) => {
   }
 });
 // @desc    Get available events
-// @route   GET /api/place/getall
+// @route   GET /api/event/getavailable
 // @access  Public
 
 const getAvailableEvents = asyncHandler(async (req, res) => {

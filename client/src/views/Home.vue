@@ -3,22 +3,32 @@
     <NavBar />
     <div class="pageContainer">
       <!-- {{ user }} -->
+      <UpcomingEvents />
     </div>
   </div>
 </template>
 
 <script>
 import NavBar from '../components/NavBar.vue';
+import UpcomingEvents from '../components/UpcomingEvents.vue';
 import { mapState, mapActions } from 'pinia';
 import { useUserStore } from '../store/User';
+import { useEventsStore } from '../store/Events';
 export default {
   name: 'HomeView',
+  methods: {
+    ...mapActions(useEventsStore, ['fetchEvents'])
+  },
   computed: {
-    ...mapState(useUserStore, ['user']),
+    ...mapState(useEventsStore, ['events']),
   },
   components: {
     NavBar,
+    UpcomingEvents
   },
+  created() {
+    this.fetchEvents()
+  }
 };
 </script>
 
