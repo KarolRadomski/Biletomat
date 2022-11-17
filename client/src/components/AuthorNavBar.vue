@@ -7,9 +7,7 @@
       </a>
       <div class="rightSide">
         <router-link to="/"
-          ><button class="btn btn-outline-dark me-2 returnButton">
-            <i class="bi bi-reply-fill me-2" style="font-size: 20px; position: relative; top: 1px"></i>Powrót do serwisu
-          </button></router-link
+          ><button class="btn btn-outline-dark me-2 returnButton"><i class="bi bi-reply-fill me-2" style="font-size: 20px; position: relative; top: 1px"></i>Powrót do serwisu</button></router-link
         >
         <button class="btn logoutButton" @click="handleLogout">Wyloguj się</button>
       </div>
@@ -44,6 +42,8 @@ export default {
 .navbar {
   box-shadow: 8px 8px 24px -15px rgba(66, 68, 90, 1);
   z-index: 10;
+  position: fixed;
+  width: 100vw;
 }
 .logoutButton {
   border: none;

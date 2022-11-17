@@ -23,13 +23,7 @@
         </div>
         <!-- Miejsce -->
         <div class="form-floating mb-3">
-          <select
-            class="form-select w-50"
-            id="floatingSelect"
-            v-model="Event.event.placeID"
-            @change="handleChangePlace()"
-            aria-label="Floating label select example"
-          >
+          <select class="form-select w-50" id="floatingSelect" v-model="Event.event.placeID" @change="handleChangePlace()" aria-label="Floating label select example">
             <option :value="0" selected></option>
             <option :key="place.id" v-for="place in places" :value="place.id">{{ place.name }}</option>
           </select>
@@ -50,38 +44,18 @@
         </div>
         <!-- Opis -->
         <div class="form-floating mb-3">
-          <textarea
-            class="form-control"
-            style="height: 120px"
-            v-model="Event.event.description"
-            placeholder="Leave a comment here"
-            id="floatingTextarea"
-          ></textarea>
+          <textarea class="form-control" style="height: 120px" v-model="Event.event.description" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
           <label for="eventName">Opis wydarzenia</label>
         </div>
         <div class="dateTimeContainer">
           <h5 style="font-size: 1rem">Początek sprzedaży</h5>
           <div class="d-flex">
             <div class="form-floating mb-3">
-              <input
-                type="date"
-                class="form-control w-100"
-                id="eventDate"
-                v-model="tempDateStart"
-                @change="translateDate('start')"
-                placeholder="23-12-322"
-              />
+              <input type="date" class="form-control w-100" id="eventDate" v-model="tempDateStart" @change="translateDate('start')" placeholder="23-12-322" />
               <label for="eventDate">Data</label>
             </div>
             <div class="form-floating d-flex mb-3 timeContainer">
-              <input
-                type="time"
-                class="form-control w-100"
-                id="eventTime"
-                v-model="tempTimeStart"
-                @change="translateDate('start')"
-                placeholder="23-12-322"
-              />
+              <input type="time" class="form-control w-100" id="eventTime" v-model="tempTimeStart" @change="translateDate('start')" placeholder="23-12-322" />
               <label for="eventTime">Godzina</label>
             </div>
           </div>
@@ -90,25 +64,11 @@
           <h5 style="font-size: 1rem">Koniec sprzedaży</h5>
           <div class="d-flex">
             <div class="form-floating mb-3">
-              <input
-                type="date"
-                class="form-control w-100"
-                id="eventDate"
-                v-model="tempDateEnd"
-                @change="translateDate('end')"
-                placeholder="23-12-322"
-              />
+              <input type="date" class="form-control w-100" id="eventDate" v-model="tempDateEnd" @change="translateDate('end')" placeholder="23-12-322" />
               <label for="eventDate">Data</label>
             </div>
             <div class="form-floating d-flex mb-3 timeContainer">
-              <input
-                type="time"
-                class="form-control w-100"
-                id="eventTime"
-                v-model="tempTimeEnd"
-                @change="translateDate('end')"
-                placeholder="23-12-322"
-              />
+              <input type="time" class="form-control w-100" id="eventTime" v-model="tempTimeEnd" @change="translateDate('end')" placeholder="23-12-322" />
               <label for="eventTime">Godzina</label>
             </div>
           </div>
@@ -251,7 +211,7 @@ export default {
 .pageContainer {
   width: 90%;
   margin: 20px auto;
-  margin-top: 60px;
+  margin-top: 120px;
   background: white;
   padding: 20px;
   box-shadow: 8px 8px 24px -15px rgba(66, 68, 90, 1);

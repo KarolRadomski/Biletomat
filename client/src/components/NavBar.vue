@@ -21,16 +21,15 @@
             <router-link :to="{ path: '/logowanie' }">
               <button class="w-100 mt-2 loginButton">Zaloguj się</button>
             </router-link>
-            <span class="mt-2"> Nie masz konta? <a href="/rejestracja" class="registerButton mt-2">Zarejestruj się</a>
-            </span>
+            <span class="mt-2"> Nie masz konta? <a href="/rejestracja" class="registerButton mt-2">Zarejestruj się</a> </span>
           </div>
           <div v-else>
             <router-link v-if="user.role === 'ADMIN'" :to="{ path: '/admin' }">
               <p class="dropElement">Panel Administratora</p>
             </router-link>
-            <router-link :to="{ path: '/bilety' }">
-              <p class="dropElement last">Moje bilety</p>
-            </router-link>
+            <!-- <router-link :to="{ path: '/bilety' }"> -->
+            <p class="dropElement last">Moje bilety</p>
+            <!-- </router-link> -->
 
             <button class="w-100 mt-2 loginButton" @click="handleLogout">Wyloguj się</button>
           </div>
@@ -66,6 +65,9 @@ export default {
 <style scoped>
 .navbar {
   box-shadow: 8px 8px 24px -15px rgba(66, 68, 90, 1);
+  z-index: 2;
+  position: fixed;
+  width: 100vw;
 }
 
 .avatar {
@@ -80,7 +82,7 @@ export default {
   border-color: lightgray;
   position: absolute;
   top: 20;
-  left: -250px !important;
+  left: -230px !important;
 }
 
 .dropdownElement a {
@@ -114,6 +116,9 @@ export default {
 }
 
 @media only screen and (max-width: 767px) {
+  .dropdownElement {
+    left: -250px !important;
+  }
   .userName {
     display: none !important;
   }

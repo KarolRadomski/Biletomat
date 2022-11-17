@@ -39,7 +39,7 @@ const routes = [
     component: Editor,
   },
   {
-    path: '/wydarzenie',
+    path: '/wydarzenie/:id',
     name: 'wydarzenie',
     component: Wydarzenie,
   },

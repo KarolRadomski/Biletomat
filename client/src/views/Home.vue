@@ -1,7 +1,7 @@
 <template>
   <div>
-    <NavBar />
     <div class="pageContainer">
+      <NavBar />
       <!-- {{ user }} -->
       <UpcomingEvents />
     </div>
@@ -17,18 +17,18 @@ import { useEventsStore } from '../store/Events';
 export default {
   name: 'HomeView',
   methods: {
-    ...mapActions(useEventsStore, ['fetchEvents'])
+    ...mapActions(useEventsStore, ['fetchEvents']),
   },
   computed: {
     ...mapState(useEventsStore, ['events']),
   },
   components: {
     NavBar,
-    UpcomingEvents
+    UpcomingEvents,
   },
   created() {
-    this.fetchEvents()
-  }
+    this.fetchEvents();
+  },
 };
 </script>
 
@@ -45,6 +45,6 @@ export default {
   left: 0;
   right: 0;
   bottom: 0px;
-  z-index: -1;
+  z-index: 1;
 }
 </style>
