@@ -33,7 +33,9 @@
           Razem: <strong>{{ calcMoneySum }}</strong> zł
         </p>
 
-        <button class="checkoutButton">Zapłać</button>
+        <router-link class="w-100" :to="{ path: '/koszyk' }">
+          <button class="checkoutButton">Zapłać</button>
+        </router-link>
       </div>
     </div>
   </div>
@@ -125,7 +127,7 @@ export default {
   align-items: flex-end;
 }
 .checkoutButton {
-  background-color: lightcoral;
+  background-color: #f25757;
   border: none;
   color: white;
   height: 40px;

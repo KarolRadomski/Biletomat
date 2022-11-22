@@ -26,6 +26,7 @@ export const useTicketsStore = defineStore('tickets', {
           this.tickets.push({
             eventID: eventID,
             seatID: seatID,
+            seatInSectorID: response.data.event.sectorDetails[0].seatsInSectors[0].id,
             price: price,
             eventName: response.data.event.name,
             endSellingDate: response.data.event.endSellingDate,

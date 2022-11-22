@@ -6,6 +6,7 @@ import AdminIndex from '../views/AdminPanel/index.vue';
 import Creator from '../views/AdminPanel/CreateEvent.vue';
 import Editor from '../views/AdminPanel/EditEvent.vue';
 import Wydarzenie from '../views/Wydarzenie.vue';
+import Koszyk from '../views/Koszyk.vue';
 
 const routes = [
   {
@@ -42,6 +43,11 @@ const routes = [
     path: '/wydarzenie/:id',
     name: 'wydarzenie',
     component: Wydarzenie,
+  },
+  {
+    path: '/koszyk',
+    name: 'koszyk',
+    component: Koszyk,
   },
 ];
 

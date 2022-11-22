@@ -8,30 +8,40 @@
       <form class="d-flex w-25" role="search">
         <input class="form-control me-2" type="search" placeholder="Szukaj wydarzeń" aria-label="Search" />
       </form>
-      <div class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown">
-          <b v-if="user" class="userName me-2">{{ user.fname }} {{ user.lname }}</b>
-          <img src="../assets/userProfile.png" class="rounded-circle avatar" height="48" alt="Portrait of a Woman" />
-        </a>
-        <div class="dropdown-menu dropdownElement">
-          <div v-if="!user">
-            <h3>Witaj w Biletomat</h3>
+      <div class="d-flex">
+        <div>
+          <router-link :to="{ path: '/koszyk' }">
+            <button type="button" class="position-relative cartButton">
+              <i class="bi bi-cart cartIcon"></i>
+              <span v-if="this.tickets?.length" class="position-absolute top-0 mt-1 start-100 translate-middle badge rounded-pill bg-danger"> {{ this.tickets?.length }} </span>
+            </button>
+          </router-link>
+        </div>
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown">
+            <b v-if="user" class="userName me-2">{{ user.fname }} {{ user.lname }}</b>
+            <img src="../assets/userProfile.png" class="rounded-circle avatar" height="48" alt="Portrait of a Woman" />
+          </a>
+          <div class="dropdown-menu dropdownElement me-2">
+            <div v-if="!user">
+              <h3>Witaj w Biletomat</h3>
 
-            Zaloguj się aby kupować i przeglądać swoje bilety
-            <router-link :to="{ path: '/logowanie' }">
-              <button class="w-100 mt-2 loginButton">Zaloguj się</button>
-            </router-link>
-            <span class="mt-2"> Nie masz konta? <a href="/rejestracja" class="registerButton mt-2">Zarejestruj się</a> </span>
-          </div>
-          <div v-else>
-            <router-link v-if="user.role === 'ADMIN'" :to="{ path: '/admin' }">
-              <p class="dropElement">Panel Administratora</p>
-            </router-link>
-            <!-- <router-link :to="{ path: '/bilety' }"> -->
-            <p class="dropElement last">Moje bilety</p>
-            <!-- </router-link> -->
+              Zaloguj się aby kupować i przeglądać swoje bilety
+              <router-link :to="{ path: '/logowanie' }">
+                <button class="w-100 mt-2 loginButton">Zaloguj się</button>
+              </router-link>
+              <span class="mt-2"> Nie masz konta? <a href="/rejestracja" class="registerButton mt-2">Zarejestruj się</a> </span>
+            </div>
+            <div v-else>
+              <router-link v-if="user.role === 'ADMIN'" :to="{ path: '/admin' }">
+                <p class="dropElement">Panel Administratora</p>
+              </router-link>
+              <!-- <router-link :to="{ path: '/bilety' }"> -->
+              <p class="dropElement last">Moje bilety</p>
+              <!-- </router-link> -->
 
-            <button class="w-100 mt-2 loginButton" @click="handleLogout">Wyloguj się</button>
+              <button class="w-100 mt-2 loginButton" @click="handleLogout">Wyloguj się</button>
+            </div>
           </div>
         </div>
       </div>
@@ -42,6 +52,7 @@
 <script>
 import { useUserStore } from '../store/User';
 import { mapWritableState, mapActions } from 'pinia';
+import { useTicketsStore } from '../store/Tickets';
 export default {
   name: 'NavBar',
   data() {
@@ -58,6 +69,7 @@ export default {
   },
   computed: {
     ...mapWritableState(useUserStore, ['user']),
+    ...mapWritableState(useTicketsStore, ['tickets']),
   },
 };
 </script>
@@ -113,6 +125,19 @@ export default {
 
 .dropElement.last {
   border-bottom: none;
+}
+i.cartIcon {
+  height: min-content;
+  align-self: center;
+  margin-bottom: 4px;
+  margin-right: 0px;
+  font-size: 24px;
+}
+.cartButton {
+  border: none;
+  background: white;
+  margin-right: 40px;
+  margin-top: 5px;
 }
 
 @media only screen and (max-width: 767px) {

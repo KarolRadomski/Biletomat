@@ -324,6 +324,7 @@ const getSeatData = asyncHandler(async (req, res) => {
                   number: true,
                   seatInSectors: {
                     select: {
+                      id: true,
                       sectorDetail: {
                         select: {
                           sector: {
