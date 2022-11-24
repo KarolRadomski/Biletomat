@@ -146,14 +146,14 @@ const updateEvent = asyncHandler(async (req, res) => {
 // @access  Public
 
 const getEvents = asyncHandler(async (req, res) => {
-  var date2 = new Date();
-  date2.setTime(date2.getTime() + 2 * 60 * 60 * 1000);
-  date2 = date2.toISOString();
+  var date = new Date();
+  date.setTime(date.getTime() + 2 * 60 * 60 * 1000);
+  date = date.toISOString();
 
   const events = await prisma.event.findMany({
     where: {
       date: {
-        gt: date2,
+        gt: date,
       },
     },
     select: {

@@ -15,5 +15,6 @@ app.use('/API/auth', require('./Routes/authRoutes'));
 app.use('/API/event', require('./Routes/eventRoutes'));
 app.use('/API/place', require('./Routes/placeRoutes'));
 app.use('/API/upload', require('./Routes/uploadRoutes'));
+app.use('/API/order', require('./Routes/orderRoutes'));
 
 app.listen(port, () => console.log(`Server is up on http://localhost:${port}`));

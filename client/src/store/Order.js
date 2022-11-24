@@ -6,8 +6,23 @@ export const useOrderStore = defineStore('Order', {
       checkoutControl: {
         stateOfCheckout: 1,
       },
-      order: {},
+      order: {
+        details: {},
+        seats: []
+      },
     };
   },
-  actions: {},
+  actions: {
+    resetOrderStore() {
+      this.checkoutControl = {
+        stateOfCheckout: 1,
+      }
+
+      this.order = {
+        details: {},
+        seats: []
+      }
+
+    }
+  },
 });

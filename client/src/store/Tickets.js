@@ -43,5 +43,12 @@ export const useTicketsStore = defineStore('tickets', {
         localStorage.setItem('tickets', JSON.stringify(this.tickets));
       }
     },
+    resetTicketsStore() {
+      this.controls = {
+        selectedSector: '',
+      }
+      this.tickets = [];
+      localStorage.removeItem('tickets');
+    }
   },
 });
