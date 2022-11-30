@@ -36,9 +36,9 @@
               <router-link v-if="user.role === 'ADMIN'" :to="{ path: '/admin' }">
                 <p class="dropElement">Panel Administratora</p>
               </router-link>
-              <!-- <router-link :to="{ path: '/bilety' }"> -->
-              <p class="dropElement last">Moje bilety</p>
-              <!-- </router-link> -->
+              <router-link :to="{ path: '/moje-bilety' }">
+                <p class="dropElement last">Moje bilety</p>
+              </router-link>
 
               <button class="w-100 mt-2 loginButton" @click="handleLogout">Wyloguj się</button>
             </div>

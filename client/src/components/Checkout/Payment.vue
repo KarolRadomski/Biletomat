@@ -33,42 +33,31 @@ export default {
   },
   methods: {
     ...mapActions(useOrderStore, ['resetOrderStore']),
-    ...mapActions(useTicketsStore, ['resetTicketStore']),
+    ...mapActions(useTicketsStore, ['resetTicketsStore']),
 
     async buyTicket() {
-
-      //Check  endSellingDate 
-      var date = new Date();
-      date.setTime(date.getTime() + 1 * 60 * 60 * 1000);
-      date = date.toISOString();
-      console.log(date);
-
-      this.tickets.forEach(ticket => {
-        if (ticket.endSellingDate < date) {
-          //Flaga 
-          // Co wtedy gdy na jedno wydarzenie można kupić a na drugie nie? 
-        } else {
-          //Flage
-
-        }
-      })
-
-      // const response = await axios.post('http://localhost:5000/API/order/create', this.order)
-      // this.checkoutControl.stateOfCheckout++;
+      await axios.post('api/order/create', this.order);
+      this.resetOrderStore();
+      this.resetTicketsStore();
+      this.checkoutControl.stateOfCheckout++;
     },
   },
   created() {
     //przygotowanie obiektu order
     this.order.details = {
       userID: this.user.id,
-
-    }
-    this.tickets.forEach(ticket => {
+    };
+    this.tickets.forEach((ticket) => {
       this.order.seats.push({
         eventID: ticket.eventID,
         seatID: ticket.seatInSectorID,
-      })
-    })
+        date: ticket.date,
+        eventName: ticket.eventName,
+        sectorName: ticket.sectorName,
+        row: ticket.row,
+        number: ticket.number,
+      });
+    });
   },
 };
 </script>
@@ -83,7 +72,7 @@ export default {
   margin: 10px 0px;
 }
 
-.borderLabel>#borderTitle {
+.borderLabel > #borderTitle {
   padding-left: 5px;
   padding-right: 5px;
   position: relative;
@@ -114,7 +103,9 @@ export default {
   background-color: green;
 }
 
-@media screen and (max-width: 767px) {}
+@media screen and (max-width: 767px) {
+}
 
-@media screen and (max-width: 480px) {}
+@media screen and (max-width: 480px) {
+}
 </style>

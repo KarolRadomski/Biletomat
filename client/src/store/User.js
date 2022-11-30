@@ -51,5 +51,19 @@ export const useUserStore = defineStore('User', {
         this.userError = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
       }
     },
+    async createService(fname, lname, email, password) {
+      try {
+        this.userError = '';
+        const data = {
+          fname,
+          lname,
+          email,
+          password,
+        };
+        const temp = await axios.post('/api/auth/service', data);
+      } catch (error) {
+        this.userError = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+      }
+    },
   },
 });

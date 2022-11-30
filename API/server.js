@@ -10,11 +10,22 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); //Allow to read uploaded file by http://localhost:5000/uploads/sektory.png
+app.use('/ticket', express.static(path.join(__dirname, 'tickets')));
 
 app.use('/API/auth', require('./Routes/authRoutes'));
 app.use('/API/event', require('./Routes/eventRoutes'));
 app.use('/API/place', require('./Routes/placeRoutes'));
 app.use('/API/upload', require('./Routes/uploadRoutes'));
 app.use('/API/order', require('./Routes/orderRoutes'));
+app.use('/download', require('./Routes/downloadRoutes'));
+
+// Handle production
+if (process.env.NODE_ENV === 'production') {
+  //Static folder
+  app.use(express.static(__dirname + '/public'));
+
+  // Handle SPA
+  app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
+}
 
 app.listen(port, () => console.log(`Server is up on http://localhost:${port}`));

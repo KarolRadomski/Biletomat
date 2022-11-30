@@ -6,7 +6,7 @@
       <div class="container d-flex">
         <div class="card eventCard" :key="event.id" v-for="event in events">
           <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-            <img :src="'http://localhost:5000' + event.coverUrl" class="img-fluid eventCover" />
+            <img :src="event.coverUrl" class="img-fluid eventCover" />
           </div>
           <div class="card-body bodyContainer">
             <div>
@@ -27,6 +27,7 @@
         </div>
       </div>
     </div>
+    {{ event }}
   </div>
 </template>
 

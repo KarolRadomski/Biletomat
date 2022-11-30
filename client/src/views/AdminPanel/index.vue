@@ -9,7 +9,7 @@
           <div :key="event.id" v-for="event in events" class="card p-3 bg-white">
             <i class="fa fa-apple"></i>
             <div class="about-product text-center mt-2">
-              <img class="eventCover" :src="'http://localhost:5000' + event.coverUrl" />
+              <img class="eventCover" :src="event.coverUrl" />
               <div>
                 <h5>{{ event.name }}</h5>
                 <h6 class="mt-0 text-black-50">
@@ -70,7 +70,7 @@ export default {
     AdminSideBar,
   },
   created() {
-    axios.get('/api/event/getall').then((response) => (this.events = response.data.events));
+    axios.get('api/event/getall').then((response) => (this.events = response.data.events));
   },
 };
 </script>

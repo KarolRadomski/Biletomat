@@ -231,7 +231,7 @@ const getAvailableEvents = asyncHandler(async (req, res) => {
       },
     },
   });
-
+  console.log(events);
   //Response after get
   if (events) {
     res.status(201).json({
@@ -311,6 +311,7 @@ const getSeatData = asyncHandler(async (req, res) => {
     select: {
       name: true,
       endSellingDate: true,
+      date: true,
       sectorDetails: {
         select: {
           seatsInSectors: {

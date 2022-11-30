@@ -5,8 +5,11 @@ import Register from '../views/Register.vue';
 import AdminIndex from '../views/AdminPanel/index.vue';
 import Creator from '../views/AdminPanel/CreateEvent.vue';
 import Editor from '../views/AdminPanel/EditEvent.vue';
+import Service from '../views/AdminPanel/Service.vue';
 import Wydarzenie from '../views/Wydarzenie.vue';
 import Koszyk from '../views/Koszyk.vue';
+import MyTickets from '../views/MyTickets.vue';
+import ServicePage from '../views/ServicePage.vue';
 
 const routes = [
   {
@@ -40,6 +43,11 @@ const routes = [
     component: Editor,
   },
   {
+    path: '/admin/service',
+    name: 'service',
+    component: Service,
+  },
+  {
     path: '/wydarzenie/:id',
     name: 'wydarzenie',
     component: Wydarzenie,
@@ -48,6 +56,16 @@ const routes = [
     path: '/koszyk',
     name: 'koszyk',
     component: Koszyk,
+  },
+  {
+    path: '/moje-bilety',
+    name: 'mojeBilety',
+    component: MyTickets,
+  },
+  {
+    path: '/service/:id',
+    name: 'servicePage',
+    component: ServicePage,
   },
 ];
 

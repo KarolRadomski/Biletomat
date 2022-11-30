@@ -32,7 +32,7 @@
         <!-- Obraz -->
         <div class="mb-3 d-flex flex-column">
           <label for="formFile" class="form-label">Aktualny obraz wydarzenia:</label>
-          <img class="eventCover" :src="'http://localhost:5000' + Event.event.coverUrl" />
+          <img class="eventCover" :src="Event.event.coverUrl" />
           <label for="formFile" class="form-label mt-2">Wybierz nowy obraz wydarzenia:</label>
           <div class="d-flex">
             <input class="form-control w-50" type="file" id="formFile" name="cover" ref="coverRef" @change="() => fileChange()" />
@@ -193,7 +193,7 @@ export default {
           sectorDetails: this.Event.sectorDetails,
         };
         console.log(data);
-        const resp = axios.post('/api//event/update', data);
+        const resp = axios.post('/api/event/update', data);
         if (resp) {
           this.$router.push({ path: '/admin' });
         }

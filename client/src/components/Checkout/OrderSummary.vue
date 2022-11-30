@@ -7,7 +7,7 @@
         <h3>Dziękujemy za zakup</h3>
       </div>
       <h5 style="text-align: center">
-        Bilety są gotowe do odebrania w zakładce <a href="/mojeBilety">Moje bilety <i class="bi bi-box-arrow-up-right" style="font-size: 18px"></i></a>
+        Bilety są gotowe do odebrania w zakładce <a href="/moje-bilety">Moje bilety <i class="bi bi-box-arrow-up-right" style="font-size: 18px"></i></a>
       </h5>
 
       <div class="navButtons">

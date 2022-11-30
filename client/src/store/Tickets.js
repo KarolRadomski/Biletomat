@@ -30,6 +30,7 @@ export const useTicketsStore = defineStore('tickets', {
             price: price,
             eventName: response.data.event.name,
             endSellingDate: response.data.event.endSellingDate,
+            date: response.data.event.date,
             row: response.data.event.sectorDetails[0].seatsInSectors[0].seat.row,
             number: response.data.event.sectorDetails[0].seatsInSectors[0].seat.number,
             sectorName: response.data.event.sectorDetails[0].seatsInSectors[0].seat.seatInSectors[0].sectorDetail.sector.name,
@@ -46,9 +47,9 @@ export const useTicketsStore = defineStore('tickets', {
     resetTicketsStore() {
       this.controls = {
         selectedSector: '',
-      }
+      };
       this.tickets = [];
       localStorage.removeItem('tickets');
-    }
+    },
   },
 });
