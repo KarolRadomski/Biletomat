@@ -31,7 +31,7 @@ const buyHandler = asyncHandler(async (req, res) => {
     });
 
     //generate PDF with ticket
-    QRCode.toDataURL(`http://192.168.1.108:8080/service/${ticket.id}`, function (err, url) {
+    QRCode.toDataURL(`https://biletomat-karradomski.herokuapp.com/service/${ticket.id}`, function (err, url) {
       //PDF generator not polish
       let theOutput = new PDFGenerator({ size: 'A4' });
       theOutput.pipe(fs.createWriteStream(`API/tickets/Bilet-${ticket.id}.pdf`));
