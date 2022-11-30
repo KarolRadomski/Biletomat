@@ -39,7 +39,7 @@
                   </div>
                   <div class="price">{{ ticket.seatInSector.sectorDetail.price }} zł</div>
                   <div class="download">
-                    <a :href="'https://biletomat-karradomski.herokuapp.com/ticket/bilet-' + ticket.id + '.pdf'" target="_blank">
+                    <a :href="'https://biletomat-karradomski.herokuapp.com/ticket/Bilet-' + ticket.id + '.pdf'" target="_blank">
                       <button class="previewButton">Podgląd<i class="bi bi-eye-fill"></i></button>
                     </a>
                     <a :href="'https://biletomat-karradomski.herokuapp.com/download/Bilet-' + ticket.id + '.pdf'">
