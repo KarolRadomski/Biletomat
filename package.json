@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "node API/server.js",
+    "start": "npx prisma generate && node API/server.js",
     "server": "nodemon API/server.js",
     "client": "cd client && npm run serve",
     "dev": "concurrently \"npm run server\" \"npm run client\""
