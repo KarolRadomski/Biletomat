@@ -26,7 +26,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); //Allow to read uploaded file by http://localhost:5000/uploads/sektory.png
   app.use('/ticket', express.static(path.join(__dirname, 'tickets')));
   // Handle SPA
-  app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '/public/index.html')));
+  app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'public', 'index.html')));
 }
 
 app.listen(port, () => console.log(`Server is up on http://localhost:${port}`));
