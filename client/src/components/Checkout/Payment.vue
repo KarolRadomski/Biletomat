@@ -6,9 +6,9 @@
       <h5 style="text-align: center">Naciśnij "Dalej" aby kontynuować zakup</h5>
       <div class="navButtons">
         <button class="prevButton" @click="this.checkoutControl.stateOfCheckout--">Powrót</button>
-        <button class="nextButton" @click="buyTicket()">Dalej</button>
+        <button class="nextButton mb-4" @click="buyTicket()">Dalej</button>
       </div>
-      <pre>{{ order }}</pre>
+      <!-- <pre>{{ order }}</pre> -->
     </div>
   </div>
 </template>
