@@ -22,7 +22,28 @@
             <b v-if="user" class="userName me-2">{{ user.fname }} {{ user.lname }}</b>
             <img src="../assets/userProfile.png" class="rounded-circle avatar" height="48" alt="Portrait of a Woman" />
           </a>
-          <div class="dropdown-menu dropdownElement me-2">
+
+          <div v-if="!user" class="dropdown-menu dropdownElement me-2" style="left: -230px !important">
+            <h3>Witaj w Biletomat</h3>
+
+            Zaloguj się aby kupować i przeglądać swoje bilety
+            <router-link :to="{ path: '/logowanie' }">
+              <button class="w-100 mt-2 loginButton">Zaloguj się</button>
+            </router-link>
+            <span class="mt-2"> Nie masz konta? <a href="/rejestracja" class="registerButton mt-2">Zarejestruj się</a> </span>
+          </div>
+          <div v-else class="dropdown-menu dropdownElement me-2">
+            <router-link v-if="user.role === 'ADMIN'" :to="{ path: '/admin' }">
+              <p class="dropElement">Panel Administratora</p>
+            </router-link>
+            <router-link :to="{ path: '/moje-bilety' }">
+              <p class="dropElement last">Moje bilety</p>
+            </router-link>
+
+            <button class="w-75 mt-2 loginButton" @click="handleLogout">Wyloguj się</button>
+          </div>
+
+          <!-- <div class="dropdown-menu dropdownElement me-2">
             <div v-if="!user">
               <h3>Witaj w Biletomat</h3>
 
@@ -32,6 +53,7 @@
               </router-link>
               <span class="mt-2"> Nie masz konta? <a href="/rejestracja" class="registerButton mt-2">Zarejestruj się</a> </span>
             </div>
+
             <div v-else>
               <router-link v-if="user.role === 'ADMIN'" :to="{ path: '/admin' }">
                 <p class="dropElement">Panel Administratora</p>
@@ -42,7 +64,7 @@
 
               <button class="w-100 mt-2 loginButton" @click="handleLogout">Wyloguj się</button>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -80,6 +102,8 @@ export default {
   z-index: 2;
   position: fixed;
   width: 100vw;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .avatar {
@@ -94,7 +118,7 @@ export default {
   border-color: lightgray;
   position: absolute;
   top: 20;
-  left: -230px !important;
+  left: -40px !important;
 }
 
 .dropdownElement a {

@@ -1,11 +1,11 @@
 <template>
   <div>
-    <NavBar />
     <div class="pageContainer">
+      <NavBar />
       <div class="d-flex justify-content-evenly">
         <div class="contentContainer">
           <div class="imageAndDescription">
-            <img :src="'http://localhost:5000' + event.coverUrl" class="eventCover" />
+            <img :src="event.coverUrl" class="eventCover" />
             <div>
               <h1>{{ event.name }}</h1>
               <p>{{ event.description }}</p>

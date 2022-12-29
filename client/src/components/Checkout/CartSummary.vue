@@ -27,7 +27,7 @@
             </div>
             <!-- delete -->
             <div class="deleteButton">
-              <i class="bi bi-trash-fill" @click="handleRemove"></i>
+              <i class="bi bi-trash-fill" @click="handleClickSeat(product.seatID, product.eventID)"></i>
             </div>
           </div>
         </div>
@@ -45,10 +45,12 @@
 <script>
 import { useTicketsStore } from '../../store/Tickets';
 import { useOrderStore } from '../../store/Order';
-import { mapWritableState } from 'pinia';
+import { mapWritableState, mapActions } from 'pinia';
 export default {
   name: 'CartSummary',
-  methods: {},
+  methods: {
+    ...mapActions(useTicketsStore, ['handleClickSeat']),
+  },
 
   computed: {
     ...mapWritableState(useTicketsStore, ['tickets']),

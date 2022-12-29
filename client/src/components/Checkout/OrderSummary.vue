@@ -28,10 +28,10 @@ export default {
   data() {
     return {};
   },
+
   computed: {
     ...mapWritableState(useOrderStore, ['checkoutControl']),
   },
-  methods: {},
 };
 </script>
 <style scoped>
