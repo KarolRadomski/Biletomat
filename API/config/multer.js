@@ -2,7 +2,7 @@ const multer = require('multer');
 
 const diskStorageToUploads = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'API/uploads');
+    cb(null, 'API/public/uploads');
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);

@@ -23,8 +23,6 @@ app.use('/download', require('./Routes/downloadRoutes'));
 if (process.env.NODE_ENV === 'production') {
   //Static folder
   app.use(express.static(path.join(__dirname, 'public/')));
-  app.use(express.static(path.join(__dirname, 'ticket/')));
-  app.use(express.static(path.join(__dirname, 'uploads/')));
 
   // Handle SPA
   app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'public/index.html')));
