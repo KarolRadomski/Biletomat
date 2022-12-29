@@ -22,9 +22,9 @@ app.use('/download', require('./Routes/downloadRoutes'));
 // Handle production
 if (process.env.NODE_ENV === 'production') {
   //Static folder
-  app.use(express.static(path.join(__dirname, 'public/')));
-  // app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); //Allow to read uploaded file by http://localhost:5000/uploads/sektory.png
-  // app.use('/ticket', express.static(path.join(__dirname, 'tickets')));
+  app.use('/public', express.static(path.join(__dirname, 'public')));
+  app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); //Allow to read uploaded file by http://localhost:5000/uploads/sektory.png
+  app.use('/ticket', express.static(path.join(__dirname, 'tickets')));
   // Handle SPA
   app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'public/index.html')));
 }
