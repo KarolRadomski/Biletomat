@@ -169,7 +169,7 @@ export default {
       if (!emptyFlag) {
         console.log('Weryfikacja przebiegła pomyślnie');
         console.log(this.Event);
-        const resp = axios.post('/api//event/create', this.Event);
+        const resp = axios.post('/api/event/create', this.Event);
         if (resp) {
           this.$router.push({ path: '/admin' });
         }

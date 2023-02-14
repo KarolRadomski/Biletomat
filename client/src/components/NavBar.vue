@@ -23,7 +23,7 @@
             <img src="../assets/userProfile.png" class="rounded-circle avatar" height="48" alt="Portrait of a Woman" />
           </a>
 
-          <div v-if="!user" class="dropdown-menu dropdownElement me-2" style="left: -230px !important">
+          <div v-if="!userLogged" class="dropdown-menu dropdownElement me-2" style="left: -230px !important">
             <h3>Witaj w Biletomat</h3>
 
             Zaloguj się aby kupować i przeglądać swoje bilety
@@ -92,6 +92,9 @@ export default {
   computed: {
     ...mapWritableState(useUserStore, ['user']),
     ...mapWritableState(useTicketsStore, ['tickets']),
+    userLogged() {
+      return this.user !== null ? true : false;
+    },
   },
 };
 </script>
