@@ -85,7 +85,6 @@
         <button class="btn btn-primary w-100" @click="handleUpdateEvent()">Aktualizuj wydarzenie</button>
       </div>
     </div>
-    <pre>{{ event }}</pre>
   </div>
 </template>
 
