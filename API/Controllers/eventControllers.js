@@ -179,7 +179,7 @@ const getEvents = asyncHandler(async (req, res) => {
         id: Number(event.id),
       },
     });
-    event.placeName = resp.name;
+    event.placeName = resp?.name;
   });
 
   //Response after get
